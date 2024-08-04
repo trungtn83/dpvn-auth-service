@@ -1,5 +1,6 @@
 package com.dpvn.authservice;
 
+import com.dpvn.shared.dto.ChangePasswordRequest;
 import com.dpvn.shared.dto.LoginRequest;
 import com.dpvn.shared.dto.LoginResponse;
 import com.dpvn.shared.util.StringUtil;
@@ -17,12 +18,14 @@ public class AuthenticationController {
 
   private final AuthenticationService authenticationService;
 
-  public AuthenticationController(AuthenticationService authenticationService) {this.authenticationService = authenticationService;}
-
+  public AuthenticationController(AuthenticationService authenticationService) {
+    this.authenticationService = authenticationService;
+  }
 
   @PostMapping("/login")
   public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequest request) {
-    LoginResponse response = authenticationService.login(request.getUsername(), request.getPassword());
+    LoginResponse response =
+        authenticationService.login(request.getUsername(), request.getPassword());
     if (StringUtil.isEmpty(response.getToken())) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
     }
@@ -34,5 +37,11 @@ public class AuthenticationController {
     authenticationService.logout(tokenHeader);
     return ResponseEntity.ok().body("Successfully logged out");
   }
-}
 
+  @PostMapping("/change-password")
+  public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request) {
+    authenticationService.changePassword(
+        request.getUsername(), request.getOldPassword(), request.getNewPassword());
+    return ResponseEntity.ok().body("Password changed successfully");
+  }
+}

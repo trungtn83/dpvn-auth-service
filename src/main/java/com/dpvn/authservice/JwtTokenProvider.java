@@ -1,10 +1,9 @@
 package com.dpvn.authservice;
 
-import com.dpvn.crm.crudservice.domain.dto.CrmUserDto;
+import com.dpvn.crmcrudservice.domain.dto.UserDto;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
@@ -17,12 +16,14 @@ import org.springframework.stereotype.Component;
 public class JwtTokenProvider {
   @Value("${jwt.secret}")
   private String secretKey;
+
   @Value("${jwt.timeout}")
   private long secretTimeout;
+
   @Value("${jwt.timeout}")
   private long refreshTimeout;
 
-  public String generateToken(CrmUserDto user) {
+  public String generateToken(UserDto user) {
     Map<String, Object> claims = new HashMap<>();
     claims.put("id", user.getId());
     claims.put("username", user.getUsername());
@@ -31,10 +32,11 @@ public class JwtTokenProvider {
     claims.put("mobilePhone", user.getMobilePhone());
     claims.put("role", user.getRoleId());
     claims.put("department", user.getDepartmentId());
+    claims.put("status", user.getStatus());
     return createToken(claims, user.getEmail(), secretTimeout);
   }
 
-  public String generateRefreshToken(CrmUserDto user) {
+  public String generateRefreshToken(UserDto user) {
     Map<String, Object> claims = new HashMap<>();
     claims.put("id", user.getId());
     claims.put("username", user.getUsername());
@@ -56,11 +58,7 @@ public class JwtTokenProvider {
 
   public long getExpirationTime(String token) {
     Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
-    Jws<Claims> claimsJws = Jwts.parser()
-        .setSigningKey(key)
-        .build()
-        .parseClaimsJws(token);
+    Jws<Claims> claimsJws = Jwts.parser().setSigningKey(key).build().parseClaimsJws(token);
     return claimsJws.getBody().getExpiration().getTime();
   }
 }
-
