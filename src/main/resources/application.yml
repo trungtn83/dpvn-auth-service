@@ -1,15 +1,6 @@
 server:
   port: 8083
 
-eureka:
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      default-zone: http://localhost:8761/eureka
-  instance:
-    prefer-ip-address: true
-
 spring:
   application:
     name: auth-service
@@ -18,3 +9,34 @@ jwt:
   secret: 5tFLPY+5K2EjwG9adAuZTPMjddY30zoL7miRj/44BaY=
   timeout: 240 # in minutes
   refreshTimeout: 1440 # in minutes
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: default, command, local
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    prefer-ip-address: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: production
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://dpvn-eureka-server:8761/eureka
+  instance:
+    prefer-ip-address: true
