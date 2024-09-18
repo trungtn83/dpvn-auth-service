@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(name = "crm-crud-service", contextId = "crm-crud-service-client")
 public interface CrmCrudServiceClient {
-  @GetMapping("/crmcrud/user/username/{username}")
+  @GetMapping("/user/username/{username}")
   UserDto getCrmUserByUserName(@PathVariable String username);
 
-  @PostMapping("/crmcrud/user")
+  @PostMapping("/user")
   UserDto createCrmUser(UserDto userDto);
 
-  @PostMapping("/crmcrud/user/change-password")
+  @PostMapping("/user/change-password")
   void changePassword(@RequestBody UserDto userDto);
 }

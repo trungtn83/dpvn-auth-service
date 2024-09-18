@@ -30,8 +30,8 @@ public class JwtTokenProvider {
     claims.put("fullName", user.getFullName());
     claims.put("email", user.getEmail());
     claims.put("mobilePhone", user.getMobilePhone());
-    claims.put("role", user.getRoleId());
-    claims.put("department", user.getDepartmentId());
+    claims.put("role", user.getRoleDto().getRoleName());
+    claims.put("department", user.getDepartmentDto().getDepartmentName());
     claims.put("status", user.getStatus());
     return createToken(claims, user.getEmail(), secretTimeout);
   }
