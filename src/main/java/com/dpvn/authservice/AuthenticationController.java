@@ -1,8 +1,8 @@
 package com.dpvn.authservice;
 
-import com.dpvn.shared.dto.ChangePasswordRequest;
-import com.dpvn.shared.dto.LoginRequest;
-import com.dpvn.shared.dto.LoginResponse;
+import com.dpvn.authservice.dto.ChangePasswordRequest;
+import com.dpvn.authservice.dto.LoginRequest;
+import com.dpvn.authservice.dto.LoginResponse;
 import com.dpvn.shared.util.StringUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,9 @@
 package com.dpvn.authservice;
 
 import com.dpvn.authservice.client.CrmCrudServiceClient;
+import com.dpvn.authservice.dto.LoginResponse;
 import com.dpvn.crmcrudservice.domain.dto.UserDto;
 import com.dpvn.shared.config.CacheService;
-import com.dpvn.shared.dto.LoginResponse;
 import com.dpvn.shared.exception.BadRequestException;
 import org.springframework.stereotype.Service;
 
