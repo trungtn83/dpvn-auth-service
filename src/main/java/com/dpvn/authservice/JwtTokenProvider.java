@@ -33,6 +33,7 @@ public class JwtTokenProvider {
     claims.put("role", user.getRole().getRoleName());
     claims.put("department", user.getDepartment().getDepartmentName());
     claims.put("status", user.getStatus());
+    claims.put("active", user.getStatus());
     return createToken(claims, user.getEmail(), secretTimeout);
   }
 
