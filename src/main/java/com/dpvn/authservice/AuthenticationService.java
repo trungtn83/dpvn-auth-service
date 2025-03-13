@@ -56,9 +56,6 @@ public class AuthenticationService {
       throw new BadRequestException("Current password is incorrect");
     }
     user.setPassword(newPassword);
-    user.setStatus("1");
-    user.setActive(Boolean.TRUE);
-    user.setDeleted(Boolean.FALSE);
     crmCrudServiceClient.changePassword(user);
   }
 }
