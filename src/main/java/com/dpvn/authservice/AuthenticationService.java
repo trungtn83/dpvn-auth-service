@@ -24,7 +24,6 @@ public class AuthenticationService {
 
   public LoginResponse login(String username, String password) {
     LoginResponse response = new LoginResponse();
-
     UserDto user = crmCrudServiceClient.getCrmUserByUserName(username);
     if (user == null) {
       response.setMessage("User not found");

@@ -1,14 +1,13 @@
 package com.dpvn.authservice;
 
 import com.dpvn.crmcrudservice.domain.dto.UserDto;
+import com.dpvn.shared.util.ObjectUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -34,6 +33,9 @@ public class JwtTokenProvider {
     claims.put("department", user.getDepartment().getDepartmentName());
     claims.put("status", user.getStatus());
     claims.put("active", user.getStatus());
+    Set<Long> userIds = new HashSet<>(user.getJudasMemberIds());
+    userIds.add(user.getId());
+    claims.put("judas", ObjectUtil.writeValueAsString(userIds));
     return createToken(claims, user.getEmail(), secretTimeout);
   }
 
