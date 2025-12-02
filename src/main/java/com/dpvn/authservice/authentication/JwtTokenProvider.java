@@ -1,13 +1,17 @@
-package com.dpvn.authservice;
+package com.dpvn.authservice.authentication;
 
-import com.dpvn.crmcrudservice.domain.dto.UserDto;
-import com.dpvn.shared.util.ObjectUtil;
+import com.dpvn.reportcrudservice.domain.dto.UserDto;
+import com.dpvn.sharedcore.util.ObjectUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -46,10 +50,10 @@ public class JwtTokenProvider {
     return createToken(claims, user.getUsername(), refreshTimeout);
   }
 
-  private String createToken(Map<String, Object> claims, String subject, long timeout) {
+  private String createToken(Map<String, Object> claims, String subject, long timeoutInMinutes) {
     Key key = Keys.hmacShaKeyFor(secretKey.getBytes());
     Date now = new Date();
-    Date validity = new Date(now.getTime() + timeout * 60 * 1000);
+    Date validity = new Date(now.getTime() + timeoutInMinutes * 60 * 1000);
     return Jwts.builder()
         .claims(claims)
         .subject(subject)

@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@EnableFeignClients
+@EnableFeignClients(basePackages = "com.dpvn")
 @EnableDiscoveryClient
 @ComponentScan(basePackages = {"com.dpvn"})
 public class AuthServiceApplication {

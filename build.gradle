@@ -22,14 +22,8 @@ ext {
 }
 
 dependencies {
-    implementation('com.dpvn:dpvn-shared:0.0.1-SNAPSHOT')
-    implementation 'com.dpvn:dpvn-crm-crud-service:0.0.1-SNAPSHOT'
-
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation 'org.springframework.session:spring-session-data-redis'
-    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
-    implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation('com.dpvn:shared-core:0.0.1-SNAPSHOT')
+    implementation('com.dpvn:dpvn-report-crud-service:0.0.1-SNAPSHOT:domain')
 
     implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
     runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'

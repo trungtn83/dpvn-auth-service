@@ -1,9 +1,9 @@
-package com.dpvn.authservice;
+package com.dpvn.authservice.authentication;
 
 import com.dpvn.authservice.dto.ChangePasswordRequest;
 import com.dpvn.authservice.dto.LoginRequest;
 import com.dpvn.authservice.dto.LoginResponse;
-import com.dpvn.shared.util.StringUtil;
+import com.dpvn.sharedcore.util.StringUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +23,8 @@ public class AuthenticationController {
   }
 
   @PostMapping("/login")
-  public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequest request) {
+  public ResponseEntity<LoginResponse> authenticate(@RequestBody LoginRequest request)
+      throws InterruptedException {
     LoginResponse response =
         authenticationService.login(request.getUsername(), request.getPassword());
     if (StringUtil.isEmpty(response.getToken())) {
